@@ -3,11 +3,11 @@ variable REGION {
 }
 
 variable n_cores {
-  default = 2
+  default = 1
 }
 
 variable mem_gb {
-  default = 4
+  default = 2
 }
 
 variable package_deploy_url {
@@ -19,12 +19,18 @@ variable RESOURCE_GROUP_NAME {
 }
 
 variable factorio_server_version {
-  default = "0.18.21"
+  default = "stable"
 }
 
-variable dns_label {}
-variable tenantid {}
-variable subid {}
+variable dns_label {
+  default = "FactoryName"
+}
+variable tenantid {
+  default = "00000000-0000-0000-0000-000000000000"
+}
+variable subid {
+  default = "00000000-0000-0000-0000-000000000000"
+}
 
 provider "azurerm" {
   version = "~>2.2.0"
@@ -40,21 +46,18 @@ resource "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_storage_account" "data" {
-  name                     = "factoriodata"
+  name                     = "stokkefactoriodata"
   resource_group_name      = azurerm_resource_group.main.name
   location                 = azurerm_resource_group.main.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
-
-
 resource "azurerm_storage_share" "gamedata" {
   name                 = "gamedata"
   storage_account_name = azurerm_storage_account.data.name
   quota                = 50
 }
-
 
 resource "azurerm_container_group" "gameserv" {
   name                = "factorio-gameserver"
@@ -63,6 +66,7 @@ resource "azurerm_container_group" "gameserv" {
   ip_address_type     = "public"
   dns_name_label      = var.dns_label
   os_type             = "Linux"
+
 
   container {
     name   = "factoriogame"
