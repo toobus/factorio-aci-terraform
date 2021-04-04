@@ -15,7 +15,7 @@ variable package_deploy_url {
 }
 
 variable RESOURCE_GROUP_NAME {
-  default = "factorio"
+  default = "toobusfactorio"
 }
 
 variable factorio_server_version {
@@ -46,7 +46,7 @@ resource "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_storage_account" "data" {
-  name                     = "factoriodata"
+  name                     = "toobusfactoriodata"
   resource_group_name      = azurerm_resource_group.main.name
   location                 = azurerm_resource_group.main.location
   account_tier             = "Standard"
