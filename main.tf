@@ -1,5 +1,5 @@
 variable REGION {
-  default = "us-central"
+  default = "centralus"
 }
 
 variable n_cores {
