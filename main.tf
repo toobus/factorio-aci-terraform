@@ -1,13 +1,13 @@
 variable REGION {
-  default = "westeurope"
+  default = "us-central"
 }
 
 variable n_cores {
-  default = 1
+  default = 2
 }
 
 variable mem_gb {
-  default = 2
+  default = 4
 }
 
 variable package_deploy_url {
